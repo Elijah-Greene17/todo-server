@@ -8,8 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri =
-    'mongodb+srv://dev3:1234@cluster1.rftd1.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongoserver';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/api/users', userRoutes);
