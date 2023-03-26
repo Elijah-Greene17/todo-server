@@ -13,6 +13,18 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/api/users', userRoutes);
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../todo/build')));
+
+    app.get('*', (req, res) =>
+        res.sendFile(
+            path.resolve(__dirname, '../', 'todo', 'build', 'index.html')
+        )
+    );
+} else {
+    app.get('/', (req, res) => res.send('Please set to production'));
+}
+
 const todoSchema = new mongoose.Schema({
     task: String,
     completed: Boolean,
